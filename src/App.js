@@ -1,42 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
-import {AiOutlineStar } from 'react-icons/ai'
-import React, { useState } from 'react';
-
-function CreateArray(number=5){
-  return [...Array(number)];
-}
-
-function Star({key, setClick, color }){
-  return(
-    <AiOutlineStar fill={color} onClick={setClick}/>
-  )
-}
-
-function StarRating({starNumber}){
-
-  let [click, setClick] = useState(0);
-  let array = CreateArray(starNumber);
-
-  return(
-    <div>
-    
-      {
-        array.map((n, i) => 
-         
-         <Star key={i} setClick={() => setClick(i+1)} color={ i<click?'red':'gray'}/>
-        )
-      }
-      
-    </div>
-  )
-}
+import React, {  useContext } from 'react';
+import {TreesContext} from "./index";
 
 function App() {
+
+  const {trees} = useContext(TreesContext);
+  console.log(trees)
   return (
     <div className="App">
-      <StarRating starNumber={10}/>
-    
+       <h1>My Trees</h1>
+      {
+        trees.map((n)=>(<li key={n.id}>{n.type}</li>))
+      }
     </div>
   );
 }
